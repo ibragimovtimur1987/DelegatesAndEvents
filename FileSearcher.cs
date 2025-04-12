@@ -13,6 +13,9 @@ public class FileSearcher
         {
             var args = new FileSearchEventArgs(Path.GetFileName(file));
             OnFileFound(args);
+            // Проверяем, должен ли быть остановлен поиск
+            if (args is ICancelable cancelableArgs && cancelableArgs.Cancel)
+                break;
         }
     }
 
